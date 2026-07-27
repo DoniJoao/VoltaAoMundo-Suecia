@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Verifica se a senha está correta
             if (hash('sha256', $pass) === $hashed_password) {
                 $_SESSION['usuario'] = $user;
-                header('Location: index2.php');
+                header('Location: ../views/classes/index2.php');
                 exit;
             } else {
                 echo "<script>alert('Usuário ou senha incorretos!'); window.location.href='login.html';</script>";

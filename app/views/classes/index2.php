@@ -44,7 +44,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="estilo.css" />
 </head>
 <header class="header">
-      <img src="imagens/bandeira-suecia.png" alt="Bandeira" width="200" />
+      <img src="../img/bandeira-suecia.png" alt="Bandeira" width="200" />
       <h1>Suécia</h1>
     </header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
