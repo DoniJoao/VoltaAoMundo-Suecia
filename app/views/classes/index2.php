@@ -1,14 +1,9 @@
 <?php
-// Conectar ao banco de dados
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "VoltaAoMundo";
+require_once "../../config/conexao.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
+// Verificar se a conexão foi estabelecida
+if (!isset($conn) || !$conn) {
+    die("Erro: Conexão com o banco de dados não foi estabelecida.");
 }
 
 // Aprovar o comentário se o botão for clicado
@@ -33,7 +28,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <title>Comentários</title>
-    <link rel="icon" href="../imagens/favicon-32x32.png" />
+    <link rel="icon" href="../img/favicon-32x32.png" />
     <title>Volta ao Mundo - Suécia</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -109,7 +104,6 @@ $result = $conn->query($sql);
                 } else {
                     echo "<tr><td colspan='7'>Nenhum comentário encontrado</td></tr>";
                 }
-                $conn->close();
                 ?>
             </tbody>
         </table>

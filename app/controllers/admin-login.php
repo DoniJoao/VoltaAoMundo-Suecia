@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "classes/usuarios.php";
-require_once "classes/conexao.php";
+require_once "../../config/conexao.php";
+require_once "usuarios.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $_POST['nome'];
@@ -26,10 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header('Location: ../views/classes/index2.php');
                 exit;
             } else {
-                echo "<script>alert('Usuário ou senha incorretos!'); window.location.href='login.html';</script>";
+                echo "<script>alert('Usuário ou senha incorretos!'); window.location.href='../views/classes/login.html';</script>";
             }
         } else {
-            echo "<script>alert('Usuário ou senha incorretos!'); window.location.href='login.html';</script>";
+            echo "<script>alert('Usuário ou senha incorretos!'); window.location.href='../views/classes/login.html';</script>";
         }
     } catch (Exception $e) {
         echo "Erro: " . $e->getMessage();

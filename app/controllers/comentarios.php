@@ -1,21 +1,5 @@
 <?php
-class Conexao {
-    public static function conectar() {
-        // Configure os detalhes da conexão
-        $host = 'localhost';
-        $db = 'VoltaAoMundo';
-        $user = 'root';
-        $pass = '';
-        
-        try {
-            $conexao = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-            $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $conexao;
-        } catch (PDOException $e) {
-            throw new Exception('Erro de conexão: ' . $e->getMessage());
-        }
-    }
-}
+require_once "../config/conexao.php";
 
 class Comentarios {
     private $conexao;
@@ -26,7 +10,41 @@ class Comentarios {
     public $aprovado;
     
     public function __construct() {
-        $this->conexao = Conexao::conectar();
+        $this->conexao = $this->obterConexao();
+    }
+
+    private function obterConexao() {
+        if (!class_exists('Conexao')) {
+            throw new Exception('Classe Conexao não encontrada.');
+        }
+
+        if (is_callable(['Conexao', 'conectar'])) {
+            return call_user_func(['Conexao', 'conectar']);
+        }
+
+        $conexaoInstancia = new Conexao();
+
+        if (is_callable([$conexaoInstancia, 'conectar'])) {
+            return call_user_func([$conexaoInstancia, 'conectar']);
+        }
+
+        if (is_callable(['Conexao', 'connect'])) {
+            return call_user_func(['Conexao', 'connect']);
+        }
+
+        if (is_callable([$conexaoInstancia, 'connect'])) {
+            return call_user_func([$conexaoInstancia, 'connect']);
+        }
+
+        if (is_callable(['Conexao', 'getConnection'])) {
+            return call_user_func(['Conexao', 'getConnection']);
+        }
+
+        if (is_callable([$conexaoInstancia, 'getConnection'])) {
+            return call_user_func([$conexaoInstancia, 'getConnection']);
+        }
+
+        throw new Exception('Método de conexão não encontrado em Conexao.');
     }
 
     public function enviarComentarios() {

@@ -1,6 +1,9 @@
 <?php
+require_once "../../config/conexao.php";
+
 class Usuario
 {
+    public $id;
     public $nome;
     public $senha;
     private $conexao;
