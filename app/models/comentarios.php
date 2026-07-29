@@ -1,5 +1,5 @@
 <?php
-require_once "conexao.php";
+require_once __DIR__ . "/../controllers/conexao.php";
 
 class Comentarios {
     private $conexao;

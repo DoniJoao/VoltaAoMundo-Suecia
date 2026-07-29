@@ -1,0 +1,100 @@
+[
+    {
+        "nome": "joao",
+        "mensagem": "muito bom ",
+        "email": "jao@gmail.com",
+        "data_criacao": "2024-06-02 00:00:00",
+        "aprovado": 1
+    },
+    {
+        "nome": "joao",
+        "mensagem": "muito bom ",
+        "email": "jao@gmail.com",
+        "data_criacao": "2024-06-02 00:00:00",
+        "aprovado": 1
+    },
+    {
+        "nome": "Ronaldo",
+        "mensagem": "A cara, esse design ta muito padr\u00e3o n\u00e9, todo site tem uma design igual, voce n\u00e3o \u00e9 nada original",
+        "email": "brilhamuitonocurintia@gmail.com",
+        "data_criacao": "2024-06-02 00:00:00",
+        "aprovado": 1
+    },
+    {
+        "nome": "joao paulo",
+        "mensagem": "vai dar 18 horas doido",
+        "email": "briante@gmail.com",
+        "data_criacao": "2024-06-02 00:00:00",
+        "aprovado": 1
+    },
+    {
+        "nome": "joao paulo",
+        "mensagem": "vai dar 18 horas doido",
+        "email": "briante@gmail.com",
+        "data_criacao": "2024-06-02 22:46:18",
+        "aprovado": 1
+    },
+    {
+        "nome": "juninho",
+        "mensagem": "10 pras 6 manow",
+        "email": "goncalves@gmail.com",
+        "data_criacao": "2024-06-02 22:51:38",
+        "aprovado": 1
+    },
+    {
+        "nome": "juninho",
+        "mensagem": "10 pras 6 manow",
+        "email": "goncalves@gmail.com",
+        "data_criacao": "2024-06-02 22:52:27",
+        "aprovado": 1
+    },
+    {
+        "nome": "hfhfg",
+        "mensagem": "fhfghfgh",
+        "email": "gfhgfhfg@gmail.com",
+        "data_criacao": "2024-06-15 17:31:30",
+        "aprovado": 1
+    },
+    {
+        "nome": "luis",
+        "mensagem": "muito bom voce vai conseguir",
+        "email": "luis@luis.com",
+        "data_criacao": "2024-06-18 21:16:34",
+        "aprovado": 1
+    },
+    {
+        "nome": "z\u00e9",
+        "mensagem": "testando comentario de z\u00e9",
+        "email": "ze@gmail.com",
+        "data_criacao": "2024-06-18 21:42:15",
+        "aprovado": 1
+    },
+    {
+        "nome": "jo\u00e3o",
+        "mensagem": "asdsa",
+        "email": "donijoaodev@gmail.com",
+        "data_criacao": "2026-07-29 09:23:31",
+        "aprovado": 1
+    },
+    {
+        "nome": "jo\u00e3o",
+        "mensagem": "teste 2",
+        "email": "donijoaodev@gmail.com",
+        "data_criacao": "2026-07-29 09:31:15",
+        "aprovado": 1
+    },
+    {
+        "nome": "jo\u00e3o",
+        "mensagem": "teste 2",
+        "email": "donijoaodev@gmail.com",
+        "data_criacao": "2026-07-29 09:31:55",
+        "aprovado": 1
+    },
+    {
+        "nome": "jo\u00e3o",
+        "mensagem": "sdfsddsfsdf",
+        "email": "donijoaodev@gmail.com",
+        "data_criacao": "2026-07-29 09:32:03",
+        "aprovado": 1
+    }
+]
