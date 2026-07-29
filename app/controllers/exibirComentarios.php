@@ -1,6 +1,6 @@
 <?php
 // Inclua o arquivo da classe Comentarios
-include_once 'classes/comentarios.php';
+include_once '../models/comentarios.php';
 
 try {
     // Crie uma instância da classe Comentarios

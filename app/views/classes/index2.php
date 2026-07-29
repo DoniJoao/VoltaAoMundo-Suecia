@@ -1,6 +1,5 @@
 <?php
-require_once "../../config/conexao.php";
-
+require_once "../../controllers/conexao.php";
 // Verificar se a conexão foi estabelecida
 if (!isset($conn) || !$conn) {
     die("Erro: Conexão com o banco de dados não foi estabelecida.");

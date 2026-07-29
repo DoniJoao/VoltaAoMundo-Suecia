@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once "../../config/conexao.php";
-require_once "usuarios.php";
+require_once "../models/conexao.php";
+require_once "../models/usuarios.php";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $user = $_POST['nome'];
-    $pass = $_POST['senha'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user = trim($_POST['nome'] ?? '');
+    $pass = trim($_POST['senha'] ?? '');
 
     try {
         $conexao = Conexao::getConnection();

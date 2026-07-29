@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 try {
     // Inclui a conexão com o banco de dados e a classe Comentarios
-    include "classes/comentarios.php";
+    include "../models/comentarios.php";
 
     // Captura e sanitiza os dados do formulário
     $nome = isset($_POST["nome"]) ? htmlspecialchars($_POST["nome"], ENT_QUOTES, 'UTF-8') : null;
