@@ -1,8 +1,15 @@
 <?php
-require_once "../../controllers/conexao.php";
+require_once "../../controllers/conexao.php"; // Caso a conexao esteja na pasta config, altere para ../../config/conexao.php
 
-// Verificar se a conexão foi estabelecida
-if (!isset($conn) || !$conn) {
+// Tenta obter a conexão PDO através da sua classe
+try {
+    $conn = Conexao::getConnection();
+} catch (Exception $e) {
+    $conn = null;
+}
+
+// 1. Se a conexão falhar, exibe a tela estilizada
+if (!$conn) {
     ?>
     <!DOCTYPE html>
     <html lang="pt-br">
@@ -29,12 +36,12 @@ if (!isset($conn) || !$conn) {
                 </div>
                 <h3 class="fw-bold text-dark mb-2">Erro de Conexão</h3>
                 <p class="text-muted mb-4">
-                    Não foi possível estabelecer conexão com o banco de dados.
+                    Não foi possível conectar ao banco de dados <strong>VoltaAoMundo</strong>. Verifique se o MySQL do Wamp está ligado.
                 </p>
                 <a href="javascript:location.reload()" class="btn btn-outline-primary w-100 py-2 fw-semibold mb-2">
                     🔄 Tentar Novamente
                 </a>
-                <a href="login.html" class="btn btn-secondary w-100 py-2 fw-semibold">
+                <a href="index.html" class="btn btn-secondary w-100 py-2 fw-semibold">
                     Página Inicial
                 </a>
             </div>
@@ -42,24 +49,25 @@ if (!isset($conn) || !$conn) {
     </body>
     </html>
     <?php
-    exit; // Interrompe a execução com a tela estilizada renderizada
+    exit;
 }
 
-// Aprovar o comentário se o botão for clicado
+// 2. Aprovar o comentário usando PDO Prepared Statement
+$mensagem_status = "";
 if (isset($_POST['aprovar'])) {
     $comentario_id = (int)$_POST['comentario_id'];
-    $sql = "UPDATE comentarios SET aprovado = 1 WHERE id = $comentario_id";
+    $stmtAprovar = $conn->prepare("UPDATE comentarios SET aprovado = 1 WHERE id = ?");
     
-    if ($conn->query($sql) === TRUE) {
-        echo "<div class='alert alert-success m-3'>Comentário aprovado com sucesso.</div>";
+    if ($stmtAprovar->execute([$comentario_id])) {
+        $mensagem_status = "<div class='alert alert-success m-3'>Comentário aprovado com sucesso!</div>";
     } else {
-        echo "<div class='alert alert-danger m-3'>Erro ao aprovar o comentário: " . $conn->error . "</div>";
+        $mensagem_status = "<div class='alert alert-danger m-3'>Erro ao aprovar o comentário.</div>";
     }
 }
 
-// Recuperar os comentários
-$sql = "SELECT id, nome, mensagem, email, data_criacao, aprovado FROM comentarios";
-$result = $conn->query($sql);
+// 3. Recuperar os comentários usando PDO
+$stmt = $conn->query("SELECT id, nome, mensagem, email, data_criacao, aprovado FROM comentarios");
+$comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -98,6 +106,9 @@ $result = $conn->query($sql);
     </nav>
 
     <div class="container mt-5">
+        
+        <?php echo $mensagem_status; ?>
+
         <h1 class="mb-4">Comentários</h1>
         <div class="table-responsive">
             <table class="table table-striped table-bordered align-middle">
@@ -114,8 +125,8 @@ $result = $conn->query($sql);
                 </thead>
                 <tbody>
                     <?php
-                    if ($result && $result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
+                    if (count($comentarios) > 0) {
+                        foreach ($comentarios as $row) {
                             echo "<tr>";
                             echo "<td>" . $row["id"] . "</td>";
                             echo "<td>" . $row["nome"] . "</td>";
