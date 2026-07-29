@@ -1,19 +1,59 @@
 <?php
 require_once "../../controllers/conexao.php";
+
 // Verificar se a conexão foi estabelecida
 if (!isset($conn) || !$conn) {
-    die("Erro: Conexão com o banco de dados não foi estabelecida.");
+    ?>
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Erro de Conexão - Volta ao Mundo Suécia</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+                min-height: 100vh;
+                font-family: system-ui, -apple-system, sans-serif;
+            }
+        </style>
+    </head>
+    <body class="d-flex align-items-center justify-content-center p-3">
+        <div class="card text-center shadow-lg p-4 border-0" style="max-width: 480px; width: 100%; border-radius: 16px;">
+            <div class="card-body">
+                <div class="mb-3 text-warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                </div>
+                <h3 class="fw-bold text-dark mb-2">Erro de Conexão</h3>
+                <p class="text-muted mb-4">
+                    Não foi possível estabelecer conexão com o banco de dados.
+                </p>
+                <a href="javascript:location.reload()" class="btn btn-outline-primary w-100 py-2 fw-semibold mb-2">
+                    🔄 Tentar Novamente
+                </a>
+                <a href="login.html" class="btn btn-secondary w-100 py-2 fw-semibold">
+                    Página Inicial
+                </a>
+            </div>
+        </div>
+    </body>
+    </html>
+    <?php
+    exit; // Interrompe a execução com a tela estilizada renderizada
 }
 
 // Aprovar o comentário se o botão for clicado
 if (isset($_POST['aprovar'])) {
-    $comentario_id = $_POST['comentario_id'];
+    $comentario_id = (int)$_POST['comentario_id'];
     $sql = "UPDATE comentarios SET aprovado = 1 WHERE id = $comentario_id";
     
     if ($conn->query($sql) === TRUE) {
-        echo "Comentário aprovado com sucesso.";
+        echo "<div class='alert alert-success m-3'>Comentário aprovado com sucesso.</div>";
     } else {
-        echo "Erro ao aprovar o comentário: " . $conn->error;
+        echo "<div class='alert alert-danger m-3'>Erro ao aprovar o comentário: " . $conn->error . "</div>";
     }
 }
 
@@ -26,94 +66,90 @@ $result = $conn->query($sql);
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Comentários</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volta ao Mundo - Suécia (Painel)</title>
     <link rel="icon" href="../img/favicon-32x32.png" />
-    <title>Volta ao Mundo - Suécia</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="estilo.css" />
 </head>
-<header class="header">
-      <img src="../img/bandeira-suecia.png" alt="Bandeira" width="200" />
-      <h1>Suécia</h1>
-    </header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Página Inicial</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Inserir Novo Admin</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 <body>
+
+    <header class="header bg-primary text-white p-3 text-center">
+        <img src="../img/bandeira-suecia.png" alt="Bandeira" width="120" class="me-2" />
+        <h1 class="d-inline align-middle">Suécia - Painel Administrativo</h1>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Página Inicial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Inserir Novo Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container mt-5">
-        <h1>Comentários</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Mensagem</th>
-                    <th>Email</th>
-                    <th>Data de Criação</th>
-                    <th>Aprovado</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row["id"] . "</td>";
-                        echo "<td>" . $row["nome"] . "</td>";
-                        echo "<td>" . $row["mensagem"] . "</td>";
-                        echo "<td>" . $row["email"] . "</td>";
-                        echo "<td>" . $row["data_criacao"] . "</td>";
-                        echo "<td>" . ($row["aprovado"] ? "Sim" : "Não") . "</td>";
-                        echo "<td>
-                                <form method='POST' action=''>
-                                    <input type='hidden' name='comentario_id' value='" . $row["id"] . "'>
-                                    <button type='submit' name='aprovar' class='btn btn-success'>Aprovar</button>
-                                </form>
-                              </td>";
-                        echo "</tr>";
+        <h1 class="mb-4">Comentários</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Mensagem</th>
+                        <th>Email</th>
+                        <th>Data de Criação</th>
+                        <th>Aprovado</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($result && $result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $row["id"] . "</td>";
+                            echo "<td>" . $row["nome"] . "</td>";
+                            echo "<td>" . $row["mensagem"] . "</td>";
+                            echo "<td>" . $row["email"] . "</td>";
+                            echo "<td>" . $row["data_criacao"] . "</td>";
+                            echo "<td>" . ($row["aprovado"] ? "<span class='badge bg-success'>Sim</span>" : "<span class='badge bg-warning text-dark'>Não</span>") . "</td>";
+                            echo "<td>";
+                            if (!$row["aprovado"]) {
+                                echo "<form method='POST' action=''>
+                                        <input type='hidden' name='comentario_id' value='" . $row["id"] . "'>
+                                        <button type='submit' name='aprovar' class='btn btn-sm btn-success'>Aprovar</button>
+                                      </form>";
+                            } else {
+                                echo "<span class='text-muted small'>Aprovado</span>";
+                            }
+                            echo "</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='7' class='text-center text-muted'>Nenhum comentário encontrado.</td></tr>";
                     }
-                } else {
-                    echo "<tr><td colspan='7'>Nenhum comentário encontrado</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="my-4 text-end">
+            <form action="backupComentarios.php" method="post">
+                <button type="submit" class="btn btn-outline-secondary">Fazer Backup dos Comentários Aprovados</button>
+            </form>
+        </div>
     </div>
 
-    <div class="admin-container">
-        <form action="backupComentarios.php" method="post" style="text-align: right;">
-            <button type="submit">Fazer Backup dos Comentários Aprovados</button>
-        </form>
-    </div>
-
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

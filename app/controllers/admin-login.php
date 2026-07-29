@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../models/conexao.php";
+require_once "conexao.php";
 require_once "../models/usuarios.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
