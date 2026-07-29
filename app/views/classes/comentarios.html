@@ -87,7 +87,7 @@
     <script>
       // Carrega os comentários via AJAX
       function carregarComentarios() {
-        fetch('exibirComentarios.php')
+        fetch('../../controllers/exibirComentarios.php')
           .then(response => {
             if (!response.ok) {
               throw new Error('Erro ao carregar os comentários.');
