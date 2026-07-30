@@ -98,7 +98,7 @@ $comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <a class="nav-link" href="../../../index.html">Página Inicial</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Inserir Novo Admin</a>
+                        <a class="nav-link" href="novo_admin.php">Inserir Novo Admin</a>
                     </li>
                 </ul>
             </div>

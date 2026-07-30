@@ -17,14 +17,21 @@ class Usuario
         }
     }
 
-    public function inserir()
-    {
-        $sql = "INSERT INTO usuarios (nome, senha) VALUES (:nome, :senha)";
 
-        $resultado = $this->conexao->prepare($sql);
-        $resultado->bindParam(':nome', $this->nome);
-        $resultado->bindParam(':senha', $this->senha);
-        $resultado->execute();
+    public function criarUsuario($nome, $senhaHash) {
+        $stmt = $this->conexao->prepare("INSERT INTO usuarios (nome, senha) VALUES (:nome, :senha)");
+        $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+        $stmt->bindParam(':senha', $senhaHash, PDO::PARAM_STR);
+        
+        return $stmt->execute();
+    }
+
+    public function buscarPorNome($nome) {
+        $stmt = $this->conexao->prepare("SELECT * FROM usuarios WHERE nome = :nome LIMIT 1");
+        $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+        $stmt->execute();
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function login()
@@ -69,18 +76,6 @@ class Usuario
 
         $this->nome = $linha['nome'];
         $this->senha = $linha['senha'];
-    }
-
-    private function contarUsuarios()
-    {
-        $sql = "SELECT COUNT(*) AS total FROM usuarios";
-
-        $resultado = $this->conexao->prepare($sql);
-        $resultado->execute();
-
-        $linha = $resultado->fetch(PDO::FETCH_ASSOC);
-
-        return $linha['total'];
     }
 }
 ?>
